@@ -1,4 +1,4 @@
-import threading
+import threading, socket
 
 class ClientHandler(threading.Thread):
 
@@ -12,4 +12,11 @@ class ClientHandler(threading.Thread):
             print(data)
 
 if __name__ == "__main__":
-    pass
+    server = socket.socket()
+    server.bind(("127.0.0.1", 5000))
+    server.listen(5)
+    
+    while True:
+        client, clientIP = server.accept()
+        clientHandler = ClientHandler(client)
+        clientHandler.start()
