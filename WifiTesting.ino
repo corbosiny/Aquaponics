@@ -15,7 +15,7 @@ void setup()
 void loop() 
 {
  int reading = analogRead(A0);
- esp.sendDataPacket(server, getHTMLdataAsString(reading));
+ esp.sendDataPacket(server, String(reading), 5002);
 }
 
 void setupESPasAccessPoint()

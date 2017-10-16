@@ -109,7 +109,7 @@ String ESP8266::getIPaddress()
   return ipAddr;
 }
 
-boolean ESP8266::sendDataPacket(String server, String dataToSend)
+boolean ESP8266::sendDataPacket(String server, String dataToSend, int port= 80)
 {
   sendCommand("CIPSTART=\"TCP\",\"" + server + "\",\"80\"");
   sendCommand("CIPSEND=" + String(dataToSend.length()));
@@ -118,7 +118,7 @@ boolean ESP8266::sendDataPacket(String server, String dataToSend)
   return checkIfMessageSentCorrectly(response);
 }
 
-boolean ESP8266::sendDataPacketUDP(String server, String dataToSend)
+boolean ESP8266::sendDataPacketUDP(String server, String dataToSend, int port= 80)
 {
   sendCommand("CIPSTART=\"UDP\",\"" + server + "\",\"80\"");
   sendCommand("CIPSEND=" + String(dataToSend.length()));
