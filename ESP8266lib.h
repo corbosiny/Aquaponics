@@ -31,8 +31,8 @@ class ESP8266
   boolean connectToNetwork(String networkName, String password);
   String getIPaddress();
   
-  boolean sendDataPacket(String server, String dataToSend);
-  boolean sendDataPacketUDP(String server, String dataToSend);  
+  boolean sendDataPacket(String server, String dataToSend, int port= 80);
+  boolean sendDataPacketUDP(String server, String dataToSend, int port= 80);  
 
   private:
   SoftwareSerial *serialLine; 
