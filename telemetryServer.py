@@ -1,4 +1,4 @@
-import socket, telemetryClient
+import socket, telemetryClient, subprocess
 
 class Server():
 
@@ -6,8 +6,12 @@ class Server():
         self.IP = IP
         self.port = port
         self.backlogs = backlogs
-    
+        print("Server Hostname: " + socket.gethostname())
+        print("IP: ", Server.getIPaddress())
+        print("Port:", port)
         self.initializeSocket()
+        print("Server initalized, now waiting for client connection..")
+        print("_" * 50)
 
     def initializeSocket(self):
         self.socket = socket.socket()
@@ -17,14 +21,17 @@ class Server():
     def waitForClients(self):
         while True:
             clientSocket, clientIP = self.socket.accept()
-            print("Connection made with IP: " + clientIP[0])
+            print(">> Connection made with IP: " + clientIP[0])
 
             clientHandler = telemetryClient.ClientHandler(clientSocket)
             clientHandler.start()
 
+    def getIPaddress():
+        subroutineCall = subprocess.Popen("hostname -I", shell= True, stdout= subprocess.PIPE, stderr= subprocess.PIPE)
+        return (subroutineCall.stdout.read() + subroutineCall.stderr.read()).decode("utf-8").strip()
+
 if __name__ == "__main__":
-    server = Server()
-    print("Server initalized, now waiting for client connection..")
+    server = Server(IP= "0.0.0.0")
     server.waitForClients()
 
     

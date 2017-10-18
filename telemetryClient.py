@@ -13,8 +13,10 @@ class ClientHandler(threading.Thread):
 
 if __name__ == "__main__":
     server = socket.socket()
-    server.bind(("127.0.0.1", 5000))
-    server.listen(5)
+    server.bind(("0.0.0.0", 5002))
+    server.listen(1)
+    print("Server Hostname: " + socket.gethostname())
+    print("Waiting for clients...")
     
     while True:
         client, clientIP = server.accept()
