@@ -1,7 +1,7 @@
-import socket, time
+import socket, time, threading
 from serialMonitor import SerialMonitor
 
-class Client():
+class Client(threading.Thread):
 
     def __init__(self, IP= "127.0.0.1", port= 80, COM= "/dev/ttyACM0", baud= 9600, timeOut = 10):
         self.IP = IP
@@ -13,7 +13,8 @@ class Client():
         self.initializeSocket()
         self.attemptConnectionWithServer()
         self.initializeSerialMonitor()
-
+        super(Client, self).__init__()
+        
     def initializeSocket(self):
         self.socket = socket.socket()
         self.socket.settimeout(self.timeOut)
@@ -37,7 +38,7 @@ class Client():
             self.attemptConnectionWithServer()
 
     def updateDataFile(self, data):
-        date = time.strftime("%d-%m-%Y\n")
+        date = time.strftime("%d-%m-%Y")
         timeStamp = time.strftime("%H:%M:%S")
         self.writeToFileWhenOpen(date, timeStamp, data)
 
@@ -50,14 +51,14 @@ class Client():
             except:
                 pass
         
-    def start(self):
+    def run(self):
         while True:
             dataToSend = self.serialMonitor.getLineFromComPort()
             self.sendDataToServer(dataToSend)
             self.updateDataFile(dataToSend)
             
 if __name__ == "__main__":
-    IPaddr = "10.144.39.191"
+    IPaddr = "192.168.1.70"
     port = 5002
     testClient = Client(IP= IPaddr, port= port)
     testClient.start()
