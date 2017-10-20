@@ -23,11 +23,11 @@ class Server():
             clientSocket, clientIP = self.socket.accept()
             print(">> Connection made with IP: " + clientIP[0])
 
-            clientHandler = telemetryClient.ClientHandler(clientSocket)
-            clientHandler.start()
+            handler = clientHandler.ClientHandler(clientSocket)
+            handler.start()
 
     def getIPaddress():
-        subroutineCall = subprocess.Popen("hostname -I", shell= True, stdout= subprocess.PIPE, stderr= subprocess.PIPE)
+        subroutineCall = subprocess.Popen("ipconfig", shell= True, stdout= subprocess.PIPE, stderr= subprocess.PIPE)
         return (subroutineCall.stdout.read() + subroutineCall.stderr.read()).decode("utf-8").strip()
 
 if __name__ == "__main__":
