@@ -21,7 +21,7 @@ class Server():
     def waitForClients(self):
         while True:
             clientSocket, clientIP = self.socket.accept()
-            print(">> Connection made with IP: " + clientIP[0])
+            print(">>Connection made with IP: " + clientIP[0])
 
             handler = clientHandler.ClientHandler(clientSocket)
             handler.start()
