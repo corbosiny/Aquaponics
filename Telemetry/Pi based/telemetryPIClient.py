@@ -58,7 +58,8 @@ class Client(threading.Thread):
             self.updateDataFile(dataToSend)
             
 if __name__ == "__main__":
-    IPaddr = "192.168.1.70"
-    port = 5002
+    IPaddr = "192.0.80.246"
+    port = 80
     testClient = Client(IP= IPaddr, port= port)
     testClient.start()
+    
