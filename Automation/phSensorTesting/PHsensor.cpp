@@ -32,7 +32,8 @@ float PHsensor::averageReadings()
   {
     total += lastTenReadings[i];
   }
-  return total / NUM_READINGS;
+  float average = total / NUM_READINGS;
+  return average;
 }
 
 
@@ -44,6 +45,6 @@ float PHsensor::convertReadingToVolts(float averageReading)
 
 float PHsensor::convertVoltsToPH(float voltageReading)
 {
-  return 3.5 * voltageReading / 6.0 - offset;
+  return 3.5 * voltageReading - offset;
 }
 
