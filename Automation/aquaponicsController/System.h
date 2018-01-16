@@ -12,6 +12,8 @@ class System
     void controlSystem();
     void controlRelay(bool state);
     
+    float lastReading;
+    
   private:
     float thresholds[2];
     int relayPin;

@@ -4,12 +4,16 @@ System::System(float thresholds[], int relayPin, float(*getSensorReading)(void))
 {
   memcpy(this->thresholds, thresholds, sizeof(thresholds));
   this->relayPin = relayPin;
-  pinMode(relayPin, OUTPUT);
+  if(relayPin >= 0) {pinMode(relayPin, OUTPUT);}
 }
 
 void System::controlSystem()
 {
   float reading = getSensorReading();
+  lastReading = reading;
+
+  if(relayPin == -1) {return;}
+  
   if(reading > thresholds[1])
   {
     controlRelay(LOW);
