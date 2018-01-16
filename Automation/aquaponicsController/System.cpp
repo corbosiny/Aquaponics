@@ -4,6 +4,7 @@ System::System(float thresholds[], int relayPin, float(*getSensorReading)(void))
 {
   memcpy(this->thresholds, thresholds, sizeof(thresholds));
   this->relayPin = relayPin;
+  pinMode(relayPin, OUTPUT);
 }
 
 void System::controlSystem()
