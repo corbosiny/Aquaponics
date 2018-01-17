@@ -116,7 +116,7 @@ void sendSystemsUpdateToPI()
   for(int systemNum = 0; systemNum < NUM_SYSTEMS; systemNum++)
   {
     Serial.print(systemLabels[systemNum]);
-    Serial.print(", ");
+    Serial.print(",");
     Serial.println(systems[systemNum].lastReading);
   }
 }
