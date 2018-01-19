@@ -17,15 +17,15 @@ class EmailNotifier():
         mailServer.login(self.senderEmail, self.password)
         return mailServer
     
-    def notifyUsers(self, message, reading):
+    def notifyUsers(self, message, dataName, reading):
         for row in self.userEmails:
             username, email = row.split(',')
 
-            self.server.sendmail(self.senderEmail, email, message.format(username, reading))
+            self.server.sendmail(self.senderEmail, email, message.format(username, dataName, reading))
 
 
 if __name__ == "__main__":
-    notifier = EmailNotifier('coreyohulse@gmail.com', 'notTheRealPassword')
+    notifier = EmailNotifier('coreyohulse@gmail.com', 'kenshin247')
 
-    message = 'Subejct: testing notifier \n\n Hey {}, whats up brochacho? Heres your reading: {}'
-    notifier.notifyUsers(message, 20)
+    message = 'Subejct: testing notifier \n\n Hey {}, whats up brochacho? Heres your {} reading: {}'
+    notifier.notifyUsers(message, 'temperature', 20)

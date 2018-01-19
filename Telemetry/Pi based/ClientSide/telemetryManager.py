@@ -10,7 +10,10 @@ testAPIkey = "X7LDFNI8L2IBFITP"
 class TelemetryManager():
 
     dataNames = {"Moisture" : 'field1', 'Temperature' : 'field2'}
-    dataThresholds = {}
+    dataThresholds = {"Moisture" : [], 'Temperature' : []}
+
+    LOWER_THRESHOLD_WARNING = "Hey {},\n\nAquaponics sensor bot here, we have a lower threshold warning for {} because of a low reading of {}"
+    UPPER_THRESHOLD_WARNING = "Hey {},\n\nAquaponics sensor bot here, we have a upper threshold warning for {} because of a high reading of {}
 
     def __init__(self, COM= "COM19"):
         self.serialConnection = SerialMonitor(COM)
@@ -32,10 +35,16 @@ class TelemetryManager():
         self.thingSpeakHandler.makePost(dataFields, dataReadings)
 
     def checkForRedFlags(self, dataName, dataReading):
-        if dataName == 'Temperature' and float(dataReading) <= 50:
-            message = "Hey {}, \nI am a notification bot, I am in testing mode. A red flag has been raised when reading " + dataName + ". The temperature was reading: {}. Let Corey know if you got this message"
-            self.emailHandler.notifyUsers(message, dataReading)        
+        thresholds = dataThresholds[dataName]
 
+        message = None
+        if dataReading < dataThresholds[0]:
+            message = TelemetryManager.LOWER_THRESHOLD_WARNING
+        elif dataReading > dataThresholds[1]
+            message = TelemetryManager.UPPER_THRESHOLD_WARNING
+
+        if message != None:
+            self.emailNotifier.notifyUsers(message, dataName, dataReading)
 
     def updateDataFile(self, dataname, data):
         date = time.strftime("%d-%m-%Y")
