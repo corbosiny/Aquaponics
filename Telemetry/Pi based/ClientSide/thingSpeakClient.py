@@ -28,7 +28,6 @@ class ThingSpeakClient():
         postTopic = "channels/" + self.channelID + "/publish/" + self.apiKey
         postPayload = self.generatePayLoad(fields, values)
 
-        print()
         try:
             publish.single(postTopic, postPayload, hostname= mqttHost, transport= methodOfPosting, port= socketPort, auth= {"username" : self.username, 'password' : self.password})
         except Exception as e:
