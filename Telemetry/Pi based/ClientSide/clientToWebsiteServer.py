@@ -37,19 +37,6 @@ class Client(threading.Thread):
             print("Problem with connection, attempting reinitialization..")
             self.attemptConnectionWithServer()
 
-    def updateDataFile(self, data):
-        date = time.strftime("%d-%m-%Y")
-        timeStamp = time.strftime("%H:%M:%S")
-        self.writeToFileWhenOpen(date, timeStamp, data)
-
-    def writeToFileWhenOpen(self, date, timeStamp, data):
-        while True:
-            try:
-                with open("DataFile-" + date, "a") as file:
-                        file.write(str(timeStamp) + ", " + str(data));
-                break
-            except:
-                pass
         
     def run(self):
         while True:
